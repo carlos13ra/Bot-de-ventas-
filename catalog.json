@@ -3,21 +3,14 @@
     "id": 1,
     "nombre": "Camiseta Oversize",
     "precio": 45,
-    "descripcion": "Tela premium, ajuste cómodo.",
+    "descripcion": "Tela premium, ajuste cómodo",
     "imagen": "https://tuimagen.com/camisa.jpg"
   },
   {
     "id": 2,
     "nombre": "Gorra Black",
     "precio": 25,
-    "descripcion": "Gorra de alta calidad.",
+    "descripcion": "Gorra de alta calidad",
     "imagen": "https://tuimagen.com/gorra.jpg"
-  },
-  {
-    "id": 3,
-    "nombre": "Sudadera Street",
-    "precio": 60,
-    "descripcion": "Sudadera estilo urbano, super cómoda.",
-    "imagen": "https://tuimagen.com/sudadera.jpg"
   }
 ]
