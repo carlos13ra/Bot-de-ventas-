@@ -1,4 +1,5 @@
-import makeWASocket, { useMultiFileAuthState, fetchLatestBaileysVersion } from '@whiskeysockets/baileys'
+import makeWASocket from '@whiskeysockets/baileys'
+import { useMultiFileAuthState, fetchLatestBaileysVersion } from '@whiskeysockets/baileys'
 // Cargar datos
 let catalog = JSON.parse(fs.readFileSync('./catalog.json'))
 let orders = JSON.parse(fs.readFileSync('./orders.json'))
