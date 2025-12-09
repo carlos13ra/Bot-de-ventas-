@@ -2,14 +2,15 @@ import makeWASocket from '@whiskeysockets/baileys'
 import { fetchLatestBaileysVersion } from '@whiskeysockets/baileys'
 import fs from 'fs'
 
-// Datos
+// Archivos JSON
 const codes = JSON.parse(fs.readFileSync('codes.json'))
 const catalog = JSON.parse(fs.readFileSync('catalog.json'))
-const orders = JSON.parse(fs.readFileSync('orders.json'))
+const ordersFile = 'orders.json'
+let orders = JSON.parse(fs.readFileSync(ordersFile))
 
+// Usuarios que pasaron el código
 let allowedUsers = []
 
-// Función principal
 async function startBot() {
   const { version } = await fetchLatestBaileysVersion()
   const sock = makeWASocket({ version, printQRInTerminal: true })
@@ -21,20 +22,22 @@ async function startBot() {
     const sender = m.key.remoteJid
     const text = (m.message.conversation || '').trim().toLowerCase()
 
-    // Verificar acceso por código
+    // Acceso por código
     if (!allowedUsers.includes(sender)) {
       if (codes.includes(text)) {
         allowedUsers.push(sender)
-        await sock.sendMessage(sender, { text: '✔ Código aceptado, ya puedes usar el bot. Escribe *menu* para empezar.' })
+        await sock.sendMessage(sender, { text: '✔ Código aceptado. Escribe *menu* para comenzar.' })
       } else {
         await sock.sendMessage(sender, { text: '❌ Ingresa tu código de 8 dígitos para acceder.' })
       }
       return
     }
 
-    // Comandos principales
+    // Comandos
     if (text === 'menu') {
-      await sock.sendMessage(sender, { text: '👋 Bienvenido a la tienda\nEscribe *catalogo* para ver productos\nEscribe *comprar <ID>* para comprar\nEscribe *contactar* para hablar con un asesor' })
+      await sock.sendMessage(sender, {
+        text: '👋 Bienvenido a la tienda\nEscribe *catalogo* para ver productos\nEscribe *comprar <ID>* para comprar\nEscribe *contactar* para hablar con un asesor'
+      })
     }
 
     if (text === 'catalogo') {
@@ -55,9 +58,9 @@ async function startBot() {
       }
 
       orders.push({ cliente: sender, producto: product.nombre, precio: product.precio, fecha: new Date().toISOString() })
-      fs.writeFileSync('orders.json', JSON.stringify(orders, null, 2))
+      fs.writeFileSync(ordersFile, JSON.stringify(orders, null, 2))
 
-      await sock.sendMessage(sender, { text: `✔ Pedido registrado!\nProducto: ${product.nombre}\nPrecio: $${product.precio}\nUn asesor te contactará.` })
+      await sock.sendMessage(sender, { text: `✔ Pedido registrado!\nProducto: ${product.nombre}\nPrecio: $${product.precio}\nUn asesor se pondrá en contacto contigo.` })
     }
 
     if (text === 'contactar') {
