@@ -1,8 +1,4 @@
-import pkg from '@whiskeysockets/baileys'
-import fs from 'fs'
-
-const { default: makeWASocket, useMultiFileAuthState, fetchLatestBaileysVersion } = pkg
-
+import makeWASocket, { useMultiFileAuthState, fetchLatestBaileysVersion } from '@whiskeysockets/baileys'
 // Cargar datos
 let catalog = JSON.parse(fs.readFileSync('./catalog.json'))
 let orders = JSON.parse(fs.readFileSync('./orders.json'))
