@@ -1,5 +1,5 @@
 {
-  "name": "bot-ventas",
+  "name": "bot-ventas-simple",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -7,6 +7,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "github:AkiraDevX/baileys"
+    "@whiskeysockets/baileys": "7.0.0-rc.9"
   }
 }
